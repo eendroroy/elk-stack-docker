@@ -1,0 +1,4 @@
+elasticsearch/data/**
+!elasticsearch/data/.keep
+**/.DS_Store
+

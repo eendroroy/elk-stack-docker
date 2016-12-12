@@ -1,0 +1,17 @@
+version: '2'
+services:
+  es:
+    build: 'elasticsearch'
+    volumes:
+     - './elasticsearch/data:/usr/share/elasticsearch/data'
+    ports:
+     - '9300:9300'
+     - '9200:9200'
+  kb:
+    build: 'kibana'
+    ports:
+     - '5601:5601'
+     - '80:5601'
+    links:
+     - 'es:elasticsearch'
+
