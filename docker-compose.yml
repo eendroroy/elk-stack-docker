@@ -1,5 +1,7 @@
 version: '2'
 services:
+  ls:
+    build: 'logstash'
   es:
     build: 'elasticsearch'
     volumes:
