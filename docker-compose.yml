@@ -1,18 +1,61 @@
-version: '2'
+version: "3"
+
 services:
-  ls:
+
+  logstash:
     build: 'logstash'
-  es:
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  elasticsearch:
     build: 'elasticsearch'
     volumes:
      - './elasticsearch/data:/usr/share/elasticsearch/data'
+     - './elasticsearch/config/ingest-geoip:/usr/share/elasticsearch/config/ingest-geoip'
     ports:
      - '9300:9300'
      - '9200:9200'
-  kb:
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  filebeat:
+    build: 'filebeat'
+    volumes:
+     - '.filebeat/log-data:/mnt/log/'
+    links:
+     - 'elasticsearch:elasticsearch'
+    depends_on:
+     - elasticsearch
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+
+  kibana:
     build: 'kibana'
     ports:
      - '5601:5601'
     links:
-     - 'es:elasticsearch'
-
+     - 'elasticsearch:elasticsearch'
+    depends_on:
+     - elasticsearch
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 2
+        delay: 10s
+      restart_policy:
+        condition: on-failure
