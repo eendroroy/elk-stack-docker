@@ -31,7 +31,7 @@ services:
   filebeat:
     build: 'filebeat'
     volumes:
-     - '.filebeat/log-data:/mnt/log/'
+     - './filebeat/log-data:/mnt/log/'
     links:
      - 'elasticsearch:elasticsearch'
     depends_on:
