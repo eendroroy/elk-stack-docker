@@ -33,6 +33,23 @@ services:
     depends_on:
       - elasticsearch
 
+  apm:
+    build: apm
+    volumes:
+      - type: bind
+        source: ./apm/config/apm-server.docker.yml
+        target: /usr/share/apm-server/apm-server.yml
+        read_only: true
+    ports:
+      - "8200:8200"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+      - elk_stack
+    depends_on:
+      - elasticsearch
+      - kibana
+
   logstash:
     build: logstash
     volumes:
