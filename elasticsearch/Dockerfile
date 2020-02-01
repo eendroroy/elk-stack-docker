@@ -1,7 +1,3 @@
-FROM elasticsearch:latest
+FROM elastic/elasticsearch:7.5.2
 
-MAINTAINER indrajit <eendroroy@gmail.com> 
-
-RUN elasticsearch-plugin install ingest-user-agent
-
-RUN elasticsearch-plugin install ingest-geoip
+MAINTAINER indrajit <eendroroy@gmail.com>

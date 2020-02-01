@@ -1,6 +1,2 @@
-elasticsearch/data/**
-!elasticsearch/data/.keep
-filebeat/log-data/**
-!filebeat/log-data/.keep
 **/.DS_Store
-
+data/**
