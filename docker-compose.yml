@@ -40,6 +40,22 @@ services:
     depends_on:
       - elasticsearch
 
+  filebeat:
+    build: filebeat
+    volumes:
+      - type: bind
+        source: ./filebeat/config/filebeat.yml
+        target: /usr/share/filebeat/config/filebeat.yml
+        read_only: true
+      - type: bind
+        source: ./data/logs
+        target: /usr/share/filebeat/logs
+        read_only: true
+    networks:
+      - elk_stack
+    depends_on:
+      - elasticsearch
+
   kibana:
     build: kibana
     volumes:

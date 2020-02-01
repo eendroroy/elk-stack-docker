@@ -1,0 +1,16 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: false
+
+processors:
+  - add_cloud_metadata: ~
+  - add_docker_metadata: ~
+
+inputs:
+  - type: log
+    paths:
+      - /usr/share/filebeat/logs/*
+
+output.elasticsearch:
+  hosts: ['elasticsearch:9200']
