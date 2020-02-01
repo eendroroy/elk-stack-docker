@@ -19,6 +19,20 @@ services:
     networks:
       - elk_stack
 
+  kibana:
+    build: kibana
+    volumes:
+      - type: bind
+        source: ./kibana/config/kibana.yml
+        target: /usr/share/kibana/config/kibana.yml
+        read_only: true
+    ports:
+      - "5601:5601"
+    networks:
+      - elk_stack
+    depends_on:
+      - elasticsearch
+
   logstash:
     build: logstash
     volumes:
@@ -39,6 +53,7 @@ services:
       - elk_stack
     depends_on:
       - elasticsearch
+      - kibana
 
   filebeat:
     build: filebeat
@@ -50,25 +65,14 @@ services:
       - type: bind
         source: ./data/logs
         target: /usr/share/filebeat/logs
-        read_only: true
+        read_only: false
     networks:
       - elk_stack
     depends_on:
       - elasticsearch
-
-  kibana:
-    build: kibana
-    volumes:
-      - type: bind
-        source: ./kibana/config/kibana.yml
-        target: /usr/share/kibana/config/kibana.yml
-        read_only: true
-    ports:
-      - "5601:5601"
-    networks:
-      - elk_stack
-    depends_on:
-      - elasticsearch
+      - kibana
+      - logstash
+#    __setup: filebeat setup -e -E output.logstash.enabled=false -E output.elasticsearch.hosts=['elasticsearch:9200'] -E setup.kibana.host=kibana:5601
 
 networks:
   elk_stack:

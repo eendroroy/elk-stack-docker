@@ -2,4 +2,4 @@ FROM elastic/filebeat:7.5.2
 
 MAINTAINER indrajit<eendroroy@gmail.com>
 
-RUN filebeat modules enable system
+RUN filebeat modules enable system nginx apache
