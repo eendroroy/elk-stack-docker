@@ -25,7 +25,7 @@ This project is intended to be a safe, welcoming space for collaboration, and co
         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
 
- Copyright (C) 2017 indrajit
+ Copyright (C) 2017-2020 indrajit
 
  Everyone is permitted to copy and distribute verbatim or modified
  copies of this license document, and changing it is allowed as long
