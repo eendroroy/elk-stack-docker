@@ -76,13 +76,13 @@ services:
     build: filebeat
     volumes:
       - type: bind
-        source: ./filebeat/config/filebeat.yml
+        source: ./filebeat/config/filebeat.docker.yml
         target: /usr/share/filebeat/config/filebeat.yml
         read_only: true
       - type: bind
-        source: ./data/logs
-        target: /usr/share/filebeat/logs
-        read_only: false
+        source: ./data/logs/nginx
+        target: /var/log/nginx
+        read_only: true
     networks:
       - elk_stack
     depends_on:
